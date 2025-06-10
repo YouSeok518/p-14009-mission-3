@@ -2,6 +2,7 @@ package com.back.domain.wiseSaying.repository;
 
 import com.back.WiseSaying;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,9 +11,14 @@ public class WiseSayingRepository {
     private List<WiseSaying> wiseSayings = new ArrayList<>();
 
     public void save(WiseSaying wiseSaying) {
-        if (wiseSaying.getId() == 0) {
+        if (wiseSaying.isNew()) {
+            LocalDateTime now = LocalDateTime.now();
+            wiseSaying.setCreateDate(now);
+            wiseSaying.setModifyDate(now);
             wiseSaying.setId(++lastId);
             wiseSayings.add(wiseSaying);
+        } else{
+            wiseSaying.setModifyDate(LocalDateTime.now());
         }
     }
 

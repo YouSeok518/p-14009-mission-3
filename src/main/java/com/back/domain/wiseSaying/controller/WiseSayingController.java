@@ -1,5 +1,6 @@
 package com.back.domain.wiseSaying.controller;
 
+import com.back.AppContext;
 import com.back.Rq;
 import com.back.WiseSaying;
 import com.back.domain.wiseSaying.service.WiseSayingService;
@@ -8,8 +9,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class WiseSayingController {
-    private Scanner scanner = new Scanner(System.in);
-    WiseSayingService wiseSayingService = new WiseSayingService();
+    private Scanner scanner = AppContext.scanner;
+    WiseSayingService wiseSayingService = AppContext.wiseSayingService;
 
     // 사용자가 '등록'이라고 입력했을때 출력하는것
     public void actionWrite(){
@@ -24,13 +25,18 @@ public class WiseSayingController {
 
     // 사용자가 '목록'이라고 입력했을때 목록 출력 담당
     public void actionList(){
-        System.out.println("번호 / 작가 / 명언");
+        System.out.println("번호 / 작성날짜 / 수정날짜 / 작가 / 명언");
         System.out.println("----------------------");
 
         List<WiseSaying> forListWiseSayings = wiseSayingService.findForList();
 
         for (WiseSaying wiseSaying : forListWiseSayings){
-            System.out.println("%d / %s / %s".formatted(wiseSaying.getId(), wiseSaying.getAuthor(), wiseSaying.getContent()));
+            System.out.printf("%d / %s / %s / %s /%s \n",
+                    wiseSaying.getId(),
+                    wiseSaying.getForPrintCreateDate(),
+                    wiseSaying.getForPrintModifyDate(),
+                    wiseSaying.getAuthor(),
+                    wiseSaying.getContent());
         }
     }
 

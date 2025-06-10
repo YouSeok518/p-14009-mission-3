@@ -1,5 +1,6 @@
 package com.back.domain.wiseSaying.service;
 
+import com.back.AppContext;
 import com.back.WiseSaying;
 import com.back.domain.wiseSaying.repository.WiseSayingRepository;
 
@@ -7,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WiseSayingService {
-    WiseSayingRepository wiseSayingRepository = new WiseSayingRepository();
+    WiseSayingRepository wiseSayingRepository = AppContext.wiseSayingRepository;
     // 내부 로직
     // 등록
     public WiseSaying write(String content, String author){
